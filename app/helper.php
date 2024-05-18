@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Level;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
@@ -42,7 +43,7 @@ function getMenu()
                             </li>";
         } else {
             $yt_aktif = ($url_aktive == $url) ? "active" : "";
-            
+
             $showmenu .= "<li class='nav-item $yt_aktif open'>
 
                                 <a data-toggle='collapse' href='#$url' class='collapsed' aria-expanded='false'>
@@ -141,4 +142,10 @@ function infomenu($idmenu, $idlevel)
     }
 
     return $hasil;
+}
+
+function getLevel($idlevel)
+{
+    $level = Level::where(['id'=>$idlevel])->first();
+    return $level->name;
 }

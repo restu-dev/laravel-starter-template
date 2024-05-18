@@ -4,14 +4,14 @@
 
               <div class="user">
                   <div class="avatar-sm float-left mr-2">
-                      <img src="{{ asset('assets/img/profile.jpg') }}" alt="..." class="avatar-img rounded-circle">
+                      <img src="/img/user/{{ Auth::user()->image }}" alt="{{ Auth::user()->image }}" class="avatar-img rounded-circle">
                   </div>
 
                   <div class="info">
                       <a data-toggle="collapse" href="#collapseExample" aria-expanded="true">
                           <span>
                               {{ Auth::user()->name }}
-                              <span class="user-level">Administrator</span>
+                              <span class="user-level">{{ getLevel(Auth::user()->id_level) }}</span>
                               <span class="caret"></span>
                           </span>
                       </a>
@@ -20,18 +20,8 @@
                       <div class="collapse in" id="collapseExample">
                           <ul class="nav">
                               <li>
-                                  <a href="#profile">
-                                      <span class="link-collapse">My Profile</span>
-                                  </a>
-                              </li>
-                              <li>
-                                  <a href="#edit">
-                                      <span class="link-collapse">Edit Profile</span>
-                                  </a>
-                              </li>
-                              <li>
-                                  <a href="#settings">
-                                      <span class="link-collapse">Settings</span>
+                                  <a href="/user-account">
+                                      <span class="link-collapse">User Account</span>
                                   </a>
                               </li>
                           </ul>

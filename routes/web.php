@@ -7,6 +7,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\AksesController;
 use App\Http\Controllers\LevelController;
 use App\Http\Controllers\SelectController;
+use App\Http\Controllers\UserAccountController;
 use App\Http\Controllers\MasterButtonController;
 use App\Http\Controllers\Auth\RegisterController;
 
@@ -30,6 +31,11 @@ Route::get('/reload-captcha', [RegisterController::class, 'reloadCaptcha']);
 
 // select
 Route::post('select-level', [SelectController::class, 'level'])->name('select-level')->middleware('auth');
+
+// user
+Route::get('/user-account', [UserAccountController::class, 'index'])->name('user-account')->middleware('auth');
+Route::post('/edit-user-account', [UserAccountController::class, 'edit'])->name('edit-user-account')->middleware('auth');
+
 
 // home
 Route::get('/home', [HomeController::class, 'index'])->name('home')->middleware('auth')->middleware('cekmenuakses');

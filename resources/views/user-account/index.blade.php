@@ -14,14 +14,49 @@
                      <div class="d-flex justify-content-center align-items-center flex-column">
                          <div class="avatar avatar-xxl">
                              <img src="/img/user/{{ Auth::user()->image }}" alt="{{ Auth::user()->image }}"
-                                 class="avatar-img rounded-circle">
+                                 class="img-preview avatar-img rounded-circle">
                          </div>
 
 
                          <h3 class="mt-3">{{ Auth::user()->name }}</h3>
                          <p class="text-small">{{ getLevel(Auth::user()->id_level) }}</p>
                      </div>
+
+                     <form action="/upload-user-img-account" method="post" enctype="multipart/form-data">
+                         @csrf
+
+                         @if (session()->has('success'))
+                             <div class="alert alert-success alert-dismissible" role="alert">
+                                 {{ session('success') }}
+                             </div>
+                         @endif
+
+                         <div class="row pt-3">
+
+                             <div class="col">
+                                 <input required name="image" onchange="previewImage()"
+                                     class="form-control @error('image') is-invalid @enderror" type="file"
+                                     id="image">
+                                 @error('image')
+                                     <div class="invalid-feedback">
+                                         {{ $message }}
+                                     </div>
+                                 @enderror
+                             </div>
+
+                             <div class="col">
+                                 <button class="btn btn-success">
+                                     <span class="btn-label">
+                                         <i class="fa fa-upload"></i>
+                                     </span>
+                                     Upload
+                                 </button>
+                             </div>
+
+                         </div>
+                     </form>
                  </div>
+
              </div>
          </div>
 
@@ -114,181 +149,22 @@
      <script src="{{ asset('assets/js/setting-demo2.js') }}"></script>
 
      <script>
+         function previewImage() {
+             const image = document.querySelector('#image');
+             const imgPreview = document.querySelector('.img-preview');
+
+             imgPreview.style.display = 'block';
+
+             const oFReader = new FileReader();
+             oFReader.readAsDataURL(image.files[0]);
+
+             oFReader.onload = function(oFREvent) {
+                 imgPreview.src = oFREvent.target.result;
+             }
+         }
+
          $(function() {
 
-
-
-             // load tabel unit
-             function loadTabeLevel() {
-
-                 $('#tabel_level').DataTable().destroy();
-
-                 $.post('{{ URL::to('admin/load-tabel-level') }}', {
-                     _token: '{{ csrf_token() }}'
-                 }, function(e) {
-                     var tabel = $("#tabel_level").DataTable({
-                         layout: {
-                             topStart: {
-                                 buttons: ['copy', 'excel', 'pdf']
-                             }
-                         },
-                         "searching": true,
-                         "paging": false,
-                         "responsive": true,
-                         "lengthChange": false,
-                         "autoWidth": false,
-                         "data": e,
-                         "columns": [{
-                                 data: 'id',
-                                 render: function(data, type, row, meta) {
-                                     return meta.row + 1;
-                                 },
-                                 className: "text-center",
-                             },
-                             {
-                                 data: 'name',
-                                 className: "text-left",
-                             },
-                             {
-                                 data: null,
-                                 "render": function(data, type, row) {
-                                     return '<div class="btn-group">' +
-                                         '<button data-id="' + row.id + '" data-name="' + row
-                                         .name +
-                                         '" data-toggle="tooltip" data-placement="top" title="Edit" type="button" class="btn btn-info btn-sm edit_level"><i class="fas fa-edit"></i></button>' +
-                                         '<button data-id="' + row.id +
-                                         '" data-toggle="tooltip" data-placement="top" title="Delete" class="btn btn-danger btn-sm hapus_level"><i class="fa fa-trash"></i></button>' +
-                                         '</div>'
-                                 },
-                             },
-                         ]
-                     }).buttons().container().appendTo('#tabel_level_wrapper .col-md-6:eq(0)');
-
-                     tabel.on('order.dt search.dt', function() {
-                         tabel.column(0, {
-                             search: 'applied',
-                             order: 'applied'
-                         }).nodes().each(function(cell, i) {
-                             cell.innerHTML = i + 1;
-                         });
-                     });
-
-                 }).done(function(data) {
-                     resetForm();
-                 });
-             }
-
-             $(document).on("click", ".edit_level", function(e) {
-                 var id_level = $(this).data("id");
-                 var nama_level = $(this).data("name");
-
-                 $("#id_level").val(id_level);
-                 $("#nama_level").val(nama_level);
-             });
-
-             //  save_form
-             $(document).on("click", "#save_form", function(e) {
-                 var id_level = $("#id_level").val();
-                 var nama_level = $("#nama_level").val();
-
-                 if (nama_level == "") {
-                     tampilPesan('warning', 'fa fa-info', 'Informasi', 'Nama level tidak boleh kosong!');
-                 } else {
-                     $.ajax({
-                         url: "/admin/store-level",
-                         cache: false,
-                         type: 'post',
-                         data: {
-                             id_level,
-                             nama_level,
-                             _token: '{{ csrf_token() }}'
-                         },
-                         success: function(result) {
-                             console.log(result);
-                             loadTabeLevel();
-                             tampilPesan('success', 'fa fa-info', 'Informasi',
-                                 'Berhasil tambah data level!');
-                             resetForm();
-                         },
-                         fail: function(xhr, textStatus, errorThrown) {
-                             tampilPesan('danger', 'fa fa-info', 'Informasi',
-                                 'Gagal tambah data level!');
-                         }
-                     });
-                 }
-
-             });
-
-             //  hapus_level
-             $(document).on("click", ".hapus_level", function(e) {
-                 var id_level = $(this).data('id');
-
-                 swal({
-                     title: 'Are you sure?',
-                     text: "You won't be able to revert this!",
-                     type: 'warning',
-                     buttons: {
-                         cancel: {
-                             visible: true,
-                             text: 'No, cancel!',
-                             className: 'btn btn-danger'
-                         },
-                         confirm: {
-                             text: 'Yes, delete it!',
-                             className: 'btn btn-success'
-                         }
-                     }
-                 }).then((willDelete) => {
-                     if (willDelete) {
-                         $.ajax({
-                             url: '/admin/destroy-level',
-                             cache: false,
-                             type: 'post',
-                             data: {
-                                 id: id_level,
-                                 _token: '{{ csrf_token() }}'
-                             },
-                             success: function(result) {
-                                 console.log(result);
-                                 loadTabeLevel();
-
-                                 swal("Poof! Your imaginary file has been deleted!", {
-                                     icon: "success",
-                                     buttons: {
-                                         confirm: {
-                                             className: 'btn btn-success'
-                                         }
-                                     }
-                                 });
-
-                             },
-                             fail: function(xhr, textStatus, errorThrown) {
-                                 tampilPesan('danger', 'fa fa-info', 'Informasi',
-                                     'Gagal hapus data level!');
-                             }
-                         })
-                     } else {
-                         swal("Your imaginary file is safe!", {
-                             buttons: {
-                                 confirm: {
-                                     className: 'btn btn-success'
-                                 }
-                             }
-                         });
-                     }
-                 });
-
-             });
-
-             // reset_form
-             $(document).on("click", "#reset_form", function() {
-                 resetForm();
-             });
-
-             function resetForm() {
-                 $("#id_level").val('');
-                 $("#nama_level").val('');
-             }
          });
      </script>
  @endsection

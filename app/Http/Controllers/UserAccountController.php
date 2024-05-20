@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
@@ -31,6 +32,26 @@ class UserAccountController extends Controller
         $active = 'user-account';
 
         return view('user-account.index', compact('title', 'active'));
+    }
+
+    public function uploadUserImgAccount(Request $request)
+    {
+        $request->validate([
+            'image' => 'image|file|max:1024'
+        ]);
+
+        if ($request->file('image')) {
+            $imageName = date('mdYHis') . uniqid().'.png';
+            $request->image->move(public_path('/img/user/'), $imageName);
+
+            // update user
+            User::where(['id'=>Auth::user()->id])->update([
+                "image" => $imageName
+            ]);
+        }
+
+        return redirect('/user-account')->with('success-upload', 'User img change!');
+
     }
 
     public function edit(Request $request)

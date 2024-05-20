@@ -42,6 +42,7 @@ Route::post('select-level', [SelectController::class, 'level'])->name('select-le
 // user
 Route::get('/user-account', [UserAccountController::class, 'index'])->name('user-account')->middleware('auth');
 Route::post('/edit-user-account', [UserAccountController::class, 'edit'])->name('edit-user-account')->middleware('auth');
+Route::post('/upload-user-img-account', [UserAccountController::class, 'uploadUserImgAccount'])->name('upload-user-img-account')->middleware('auth');
 
 // home
 Route::get('/home', [HomeController::class, 'index'])->name('home')->middleware('auth')->middleware('cekmenuakses');

@@ -41,6 +41,8 @@ return [
             'encryption' => env('MAIL_ENCRYPTION', 'tls'),
             'username' => env('MAIL_USERNAME'),
             'password' => env('MAIL_PASSWORD'),
+            'sendmail' => '/usr/sbin/sendmail -bs',
+            'pretend' => false,
             'timeout' => null,
             'auth_mode' => null,
         ],

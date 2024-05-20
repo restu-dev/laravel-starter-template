@@ -22,11 +22,18 @@ use App\Http\Controllers\Auth\RegisterController;
 |
 */
 
+Auth::routes();
+
+//verifikasi email user
+Auth::routes(['verify' => true]);
+Route::get('/verip', function () {
+    return view('auth.verify');
+});
+
 Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes();
 Route::get('/reload-captcha', [RegisterController::class, 'reloadCaptcha']);
 
 // select
@@ -35,7 +42,6 @@ Route::post('select-level', [SelectController::class, 'level'])->name('select-le
 // user
 Route::get('/user-account', [UserAccountController::class, 'index'])->name('user-account')->middleware('auth');
 Route::post('/edit-user-account', [UserAccountController::class, 'edit'])->name('edit-user-account')->middleware('auth');
-
 
 // home
 Route::get('/home', [HomeController::class, 'index'])->name('home')->middleware('auth')->middleware('cekmenuakses');

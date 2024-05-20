@@ -8,6 +8,7 @@ use App\Providers\RouteServiceProvider;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
@@ -54,7 +55,15 @@ class LoginController extends Controller
             return Redirect::back()->withErrors($validator);
         } else {
             if (auth()->attempt(['email' => $request->email, 'password' => $request->password])) {
-                return redirect()->intended('home');
+                // cek verivikasi email
+                $verifi_email = Auth::user()->email_verified_at;
+
+                if(!empty($verifi_email)){
+                    return redirect()->intended('home');
+                }else{
+                    return redirect()->intended('verip');
+                }
+
             } else {
                 $this->incrementLoginAttempts($request);
                 return $this->sendFailedLoginResponse($request);

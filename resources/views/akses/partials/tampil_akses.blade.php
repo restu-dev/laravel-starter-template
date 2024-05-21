@@ -76,8 +76,11 @@
                 </tbody>
             </table>
             <div class="card-footer">
-                <button id='simpanaksesmenu' type='button' class="btn btn-info">Simpan</button>
-                <button type="submit" class="btn btn-default float-right">Batal</button>
+                {{-- <button id='simpanaksesmenu' type='button' class="btn btn-info">Simpan</button>
+                <button type="submit" class="btn btn-default float-right">Batal</button> --}}
+
+                <button class="btn btn-{{ getButton('close', 'color') }}"><i class="fas fa-{{ getButton('close', 'icon') }}"></i> {{ getButton('close', 'title') }}</button>
+                <button id="simpanaksesmenu" class="float-right btn btn-{{ getButton('save', 'color') }}"><i class="fas fa-{{ getButton('save', 'icon') }}"></i> {{ getButton('save', 'title') }}</button>
             </div>
             {{-- <button class='pull-right btn btn-primary btn-md' id='simpanaksesmenu'  type='submit'><i class='ion-arrow-right-b'></i>[F2] Simpan</button>
             <button style='margin-left:20px;margin-right:20px' class='pull-right btn btn-danger btn-md' data-dismiss="modal"  type='button'><i class='ion-arrow-right-b'></i>[Esc] Batal</button> --}}

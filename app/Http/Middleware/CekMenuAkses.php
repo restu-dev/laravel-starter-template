@@ -38,7 +38,7 @@ class CekMenuAkses
             foreach($data as $d){
                 session()->put('yt_add', $d->yt_add);
                 session()->put('yt_edit', $d->yt_edit);
-                session()->put('yt_del', $d->yt_del);
+                session()->put('yt_hapus', $d->yt_del);
                 session()->put('yt_print', $d->yt_print);
                 session()->put('url_aktif', $d->url);
             }

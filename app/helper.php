@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Button;
 use App\Models\Level;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -54,7 +55,7 @@ function getMenu()
 
                                 <div class='collapse' id='$url'>
                                     <ul class='nav nav-collapse'>";
-                                    
+
             $query2 = DB::select("SELECT m.id AS id_main,a.id_level,a.id_menu,a.yt_add,a.yt_edit,
                                         a.yt_del,a.yt_print,m.id,m.url,m.nama AS nama_menu,m.punya_sub,m.icon,l.name AS nama_level 
                                     FROM akses a
@@ -82,7 +83,6 @@ function getMenu()
                                     <span class='sub-item'>$nama_menu2</span>
                                 </a>
                              </li>";
-      
             }
             $showmenu .= "</ul>
                         </div>
@@ -146,6 +146,163 @@ function infomenu($idmenu, $idlevel)
 
 function getLevel($idlevel)
 {
-    $level = Level::where(['id'=>$idlevel])->first();
-    return $level->name;
+    $level = Level::where(['id' => $idlevel])->first();
+    if (!empty($level)) {
+        return $level->name;
+    } else {
+        return '';
+    }
+}
+
+function getButton($nama, $jenis)
+{
+
+    if ($nama == 'add') {
+        $button = Button::where(['name' => 'Add'])->first();
+
+        $title = "";
+        $color = "";
+        $icon  = "";
+
+        if ($jenis == 'title') {
+            $title = $button->name;
+            return $title;
+        }
+
+        if ($jenis == 'color') {
+            $color = $button->color;
+            return $color;
+        }
+
+        if ($jenis == 'icon') {
+            $icon = $button->icon;
+            return $icon;
+        }
+    } else if ($nama == 'edit') {
+        $button = Button::where(['name' => 'Edit'])->first();
+
+        $title = "";
+        $color = "";
+        $icon  = "";
+
+        if ($jenis == 'title') {
+            $title = $button->name;
+            return $title;
+        }
+
+        if ($jenis == 'color') {
+            $color = $button->color;
+            return $color;
+        }
+
+        if ($jenis == 'icon') {
+            $icon = $button->icon;
+            return $icon;
+        }
+    } else if ($nama == 'hapus') {
+        $button = Button::where(['name' => 'Hapus'])->first();
+
+        $title = "";
+        $color = "";
+        $icon  = "";
+
+        if ($jenis == 'title') {
+            $title = $button->name;
+            return $title;
+        }
+
+        if ($jenis == 'color') {
+            $color = $button->color;
+            return $color;
+        }
+
+        if ($jenis == 'icon') {
+            $icon = $button->icon;
+            return $icon;
+        }
+    } else if ($nama == 'detail') {
+        $button = Button::where(['name' => 'Detail'])->first();
+
+        $title = "";
+        $color = "";
+        $icon  = "";
+
+        if ($jenis == 'title') {
+            $title = $button->name;
+            return $title;
+        }
+
+        if ($jenis == 'color') {
+            $color = $button->color;
+            return $color;
+        }
+
+        if ($jenis == 'icon') {
+            $icon = $button->icon;
+            return $icon;
+        }
+    } else if ($nama == 'save') {
+        $button = Button::where(['name' => 'Save'])->first();
+
+        $title = "";
+        $color = "";
+        $icon  = "";
+
+        if ($jenis == 'title') {
+            $title = $button->name;
+            return $title;
+        }
+
+        if ($jenis == 'color') {
+            $color = $button->color;
+            return $color;
+        }
+
+        if ($jenis == 'icon') {
+            $icon = $button->icon;
+            return $icon;
+        }
+    } else if ($nama == 'reset') {
+        $button = Button::where(['name' => 'Reset'])->first();
+
+        $title = "";
+        $color = "";
+        $icon  = "";
+
+        if ($jenis == 'title') {
+            $title = $button->name;
+            return $title;
+        }
+
+        if ($jenis == 'color') {
+            $color = $button->color;
+            return $color;
+        }
+
+        if ($jenis == 'icon') {
+            $icon = $button->icon;
+            return $icon;
+        }
+    } else {
+        $button = Button::where(['name' => 'Close'])->first();
+
+        $title = "";
+        $color = "";
+        $icon  = "";
+
+        if ($jenis == 'title') {
+            $title = $button->name;
+            return $title;
+        }
+
+        if ($jenis == 'color') {
+            $color = $button->color;
+            return $color;
+        }
+
+        if ($jenis == 'icon') {
+            $icon = $button->icon;
+            return $icon;
+        }
+    }
 }

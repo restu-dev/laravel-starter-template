@@ -40,8 +40,8 @@
 
             </div>
             <div class="modal-footer justify-content-between">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" id="save_menu_header" class="btn btn-primary">Save changes</button>
+                <button data-dismiss="modal" class="btn btn-{{ getButton('close', 'color') }}"><i class="fas fa-{{ getButton('close', 'icon') }}"></i> {{ getButton('close', 'title') }}</button>
+                <button id="save_menu_header" class="btn btn-{{ getButton('save', 'color') }}"><i class="fas fa-{{ getButton('save', 'icon') }}"></i> {{ getButton('save', 'title') }}</button>
             </div>
         </div>
     </div>

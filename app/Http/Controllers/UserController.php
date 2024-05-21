@@ -23,8 +23,37 @@ class UserController extends Controller
 
     public function loadTabelUser()
     {
-        // return User::with(['unit','jenjang'])->get();
-        return User::get();
+        $results = User::get();
+
+        $edit_title = getButton('edit', 'title');
+        $edit_color = getButton('edit', 'color');
+        $edit_icon  = getButton('edit', 'icon');
+
+        $hapus_title  = getButton('hapus', 'title');
+        $hapus_color = getButton('hapus', 'color');
+        $hapus_icon  = getButton('hapus', 'icon');
+
+        for($i=0; $i<count($results); $i++){
+            $id = $results[$i]->id;
+            $nama = $results[$i]->name;
+            $email = $results[$i]->email;
+            $level = $results[$i]->id_level;
+
+            $aksi = "<div class='btn-group'>
+                        <button data-id='$id' data-name='$nama' data-email='$email' data-level='$level' data-toggle='tooltip' data-placement='top' title='$edit_title' type='button' class='btn btn-$edit_color btn-sm edit_user'>
+                            <i class='fas fa-$edit_icon'></i>
+                        </button>
+                        
+                        <button data-id='$id' data-toggle='tooltip' data-placement='top' title='$hapus_title' class='btn btn-$hapus_color btn-sm hapus_user'>
+                            <i class='fa fa-$hapus_icon'></i>
+                        </button>
+                    </div>";
+
+            $results[$i]->aksi = $aksi;
+            
+        }
+
+        return $results;
     }
 
     public function store(Request $request)

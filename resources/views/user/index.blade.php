@@ -82,8 +82,8 @@
                      </div>
 
                      <div class="card-footer">
-                         <button id="reset_form" class="btn btn-warning"><i class="fas fa-refresh"></i> Reset</button>
-                         <button id="save_form" class="btn btn-success"><i class="fas fa-save"></i> Save</button>
+                         <button id="reset_form" class="btn btn-{{ getButton('reset', 'color') }}"><i class="fas fa-{{ getButton('reset', 'icon') }}"></i> Reset</button>
+                         <button id="save_form" class="btn btn-{{ getButton('save', 'color') }}"><i class="fas fa-{{ getButton('save', 'icon') }}"></i> Save</button>
                      </div>
 
 
@@ -154,19 +154,11 @@
                                  data: 'email',
                                  className: "text-left",
                              },
-                             {
-                                 data: null,
-                                 "render": function(data, type, row) {
-                                     return '<div class="btn-group">' +
-                                         '<button data-id="' + row.id + '"data-email="' +
-                                         row.email + '"data-level="' + row.id_level +
-                                         '"data-name="' + row.name +
-                                         '" data-toggle="tooltip" data-placement="top" title="Edit" type="button" class="btn btn-info btn-sm edit_user"><i class="fas fa-edit"></i></button>' +
-                                         '<button data-id="' + row.id +
-                                         '" data-toggle="tooltip" data-placement="top" title="Delete" class="btn btn-danger btn-sm hapus_user"><i class="fa fa-trash"></i></button>' +
-                                         '</div>'
-                                 },
-                             },
+                              {
+                                 data: 'aksi',
+                                 className: "text-left",
+                             }
+                            
                          ],
                          columnDefs: [{
                              width: 200,

@@ -158,19 +158,19 @@
                                              '" data-url="' + row.url +
                                              '" data-urut="' + row.urut_header +
                                              '" data-sub="' + row.punya_sub +
-                                             '" data-toggle="tooltip" data-placement="top" title="Edit" type="button" class="btn btn-info btn-sm edit_menu_header"><i class="fas fa-edit"></i></button>' +
+                                             '" data-toggle="tooltip" data-placement="top" title="Edit" type="button" class="btn btn-primary btn-sm edit_menu_header"><i class="fas fa-edit"></i></button>' +
                                              '<button data-id="' + row.id +
-                                             '" data-toggle="tooltip" data-placement="top" title="Detail" class="btn btn-warning btn-sm detail_header"><i class="fa fa-eye"></i></button>' +
+                                             '" data-toggle="tooltip" data-placement="top" title="Detail" class="btn btn-info btn-sm detail_header"><i class="fa fa-eye"></i></button>' +
                                              '</div>'
                                      } else {
-                                          return '<div class="btn-group">' +
+                                         return '<div class="btn-group">' +
                                              '<button data-id="' + row.id + '" data-nama="' +
                                              row
                                              .nama + '" data-icon="' + row.icon +
                                              '" data-url="' + row.url +
                                              '" data-urut="' + row.urut_header +
                                              '" data-sub="' + row.punya_sub +
-                                             '" data-toggle="tooltip" data-placement="top" title="Edit" type="button" class="btn btn-info btn-sm edit_menu_header"><i class="fas fa-edit"></i></button>' +
+                                             '" data-toggle="tooltip" data-placement="top" title="Edit" type="button" class="btn btn-primary btn-sm edit_menu_header"><i class="fas fa-edit"></i></button>' +
                                              '</div>'
                                      }
                                  },
@@ -298,7 +298,7 @@
 
                          },
                          fail: function(xhr, textStatus, errorThrown) {
-                             tampilPesan('success', 'fa fa-info', 'Informasi', 'request failed');
+                             tampilPesan('danger', 'fa fa-info', 'Informasi', 'request failed');
                              $('#modal-default').modal('hide');
                          }
                      });
@@ -357,7 +357,7 @@
                                          '" data-icon="' + row.icon +
                                          '" data-url="' + row.url +
                                          '" data-urut="' + row.urut_parent +
-                                         '" data-toggle="tooltip" data-placement="top" title="Edit" type="button" class="btn btn-info btn-sm edit_menu_parent"><i class="fas fa-edit"></i></button>' +
+                                         '" data-toggle="tooltip" data-placement="top" title="Edit" type="button" class="btn btn-primary btn-sm edit_menu_parent"><i class="fas fa-edit"></i></button>' +
                                          '<button data-id="' + row.id +
                                          '" data-toggle="tooltip" data-placement="top" title="Delete" class="btn btn-danger btn-sm hapus_parent"><i class="fa fa-trash"></i></button>' +
                                          '</div>'
